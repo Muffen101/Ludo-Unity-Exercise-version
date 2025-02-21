@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
 
+
+[SerializeField]
 public class GameLogic : MonoBehaviour
 {
     public GameObject gamePiecePrefab;
@@ -17,7 +19,7 @@ public class GameLogic : MonoBehaviour
         dice = new Dice();
         players = new Player[numberOfPlayers];
 
-        // Create Players Dynamically
+        // Create Players 
         for (int i = 0; i < numberOfPlayers; i++)
         {
             GameObject playerObj = new GameObject($"Player {i + 1}");
