@@ -1,18 +1,15 @@
+using System.ComponentModel;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public GamePiece[] pieces = new GamePiece[4];
+    GameObject[] pieces = new GameObject[4];
 
-    public void Initialize(GameObject gamePiecePrefab, Transform startPosition)
+    public void Start()
     {
         for (int i = 0; i < pieces.Length; i++)
         {
-            Vector3 piecePosition = startPosition.position + new Vector3(i * 0.5f, 0, 0); // Offset pieces slightly
-            GameObject pieceObj = Instantiate(gamePiecePrefab, piecePosition, Quaternion.identity);
-            pieces[i] = pieceObj.GetComponent<GamePiece>();
-            pieceObj.name = $"{gameObject.name}_Piece{i + 1}";
-            pieceObj.transform.SetParent(transform); // Set player as parent
+            pieces[i] = transform.GetChild(i).gameObject;
         }
     }
 
@@ -20,36 +17,34 @@ public class Player : MonoBehaviour
     {
         if (rollValue == 6)
         {
-            foreach (var piece in pieces)
+            for (int i = 0; i < pieces.Length; i++)
             {
-                if (piece.Position == 0)
+                if (pieces[i].transform.position.x == 0)
                 {
-                    piece.Move(1);
+                    pieces[i].GetComponent<GamePiece>().Move(1);
                     return false;
                 }
             }
         }
         else
         {
-            foreach (var piece in pieces)
+            for (int i = 0; i < pieces.Length; i++)
             {
-                if (piece.Position + rollValue <= 40)
+                if (pieces[i].transform.position.x + rollValue <= 40)
                 {
-                    piece.Move(rollValue);
+                    pieces[i].GetComponent<GamePiece>().Move(rollValue);
                     return false;
                 }
             }
         }
-
-        foreach (var piece in pieces)
+        for (int i = 0; i < pieces.Length; i++)
         {
-            if (piece.Position < 40)
+            if (pieces[i].transform.position.x < 40)
             {
-                piece.Move(rollValue);
+                pieces[i].GetComponent<GamePiece>().Move(rollValue);
                 return false;
             }
         }
-
-        return true; // Player wins
+        return true;
     }
 }

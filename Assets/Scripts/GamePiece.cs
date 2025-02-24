@@ -1,13 +1,10 @@
+
 using UnityEngine;
 
 public class GamePiece : MonoBehaviour
 {
-    private int position = 0;
-
-    public int Position => position;
-
-    public void Move(int x)
+    public void Move(int v)
     {
-        position += x;
+        transform.position = transform.position + new Vector3(v, 0, 0);
     }
 }
