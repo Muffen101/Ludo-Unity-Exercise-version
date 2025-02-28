@@ -67,7 +67,7 @@ public class Player
         {
             for (int i = 0; i < pieces.Length; i++)
             {
-                if (pieces[i].Position+rollValue <= 40)
+                if (pieces[i].Position+rollValue <= 40 && pieces[i].Position > 0)
                 {
                     pieces[i].Move(rollValue);
                     return false;
@@ -75,7 +75,7 @@ public class Player
             }
         }
         for (int i = 0; i < pieces.Length; i++) {
-            if (pieces[i].Position < 40)
+            if (pieces[i].Position < 40 && pieces[i].Position > 0)
             {
                 pieces[i].Move(rollValue);
                 return false;
